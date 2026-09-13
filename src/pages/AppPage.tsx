@@ -1,25 +1,21 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Plane, LogOut, BellRing } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import type { User } from "@supabase/supabase-js";
 
-export const Route = createFileRoute("/_authenticated/app")({
-  head: () => ({
-    meta: [
-      { title: "Dashboard — Flight Price Notifier" },
-      { name: "description", content: "Your flight price tracking dashboard." },
-    ],
-  }),
-  component: AppPage,
-});
-
-function AppPage() {
+export default function AppPage() {
   const navigate = useNavigate();
-  const { user } = Route.useRouteContext();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null));
+  }, []);
 
   async function handleSignOut() {
     await supabase.auth.signOut();
-    navigate({ to: "/", replace: true });
+    navigate("/", { replace: true });
   }
 
   return (
@@ -33,9 +29,11 @@ function AppPage() {
             Flight Price Notifier
           </div>
           <div className="flex items-center gap-4">
-            <span className="hidden text-sm text-muted-foreground sm:inline">
-              Hi {user.email}
-            </span>
+            {user && (
+              <span className="hidden text-sm text-muted-foreground sm:inline">
+                Hi {user.email}
+              </span>
+            )}
             <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-2">
               <LogOut className="size-4" />
               Sign Out
@@ -47,7 +45,7 @@ function AppPage() {
       <main className="hero-glow">
         <div className="mx-auto flex max-w-3xl flex-col items-center px-4 py-24 text-center sm:px-6 sm:py-32">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Hi {user.email}
+            {user ? `Hi ${user.email}` : "Dashboard"}
           </h1>
           <div className="mt-8 w-full rounded-2xl border border-border bg-card p-10">
             <span className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-primary/15 text-primary">
