@@ -5,7 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Flight Price Notifier design system — dark-first, violet accent.
+ * Flight Price Notifier design system — light watercolor, terracotta accent.
+ * Palette drawn from a hand-painted still life: warm cream paper ground,
+ * terracotta-vermilion accent (the teapot), dusty blue & sage supporting tones,
+ * warm-ink text. Soft, airy, gallery-print feel.
  */
 
 @theme inline {
@@ -49,30 +52,44 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.145 0.018 290);
-  --foreground: oklch(0.95 0.012 290);
-  --card: oklch(0.185 0.025 290);
-  --card-foreground: oklch(0.95 0.012 290);
-  --popover: oklch(0.185 0.025 290);
-  --popover-foreground: oklch(0.95 0.012 290);
-  --primary: oklch(0.62 0.24 293);
-  --primary-foreground: oklch(0.97 0.01 290);
-  --secondary: oklch(0.22 0.03 290);
-  --secondary-foreground: oklch(0.92 0.02 290);
-  --muted: oklch(0.22 0.03 290);
-  --muted-foreground: oklch(0.68 0.035 290);
-  --accent: oklch(0.25 0.05 293);
-  --accent-foreground: oklch(0.95 0.015 293);
-  --destructive: oklch(0.62 0.2 25);
-  --destructive-foreground: oklch(0.97 0.01 290);
-  --border: oklch(0.27 0.03 290);
-  --input: oklch(0.27 0.03 290);
-  --ring: oklch(0.62 0.24 293);
-  --chart-1: oklch(0.62 0.24 293);
-  --chart-2: oklch(0.7 0.15 200);
-  --chart-3: oklch(0.77 0.18 70);
-  --chart-4: oklch(0.65 0.2 330);
-  --chart-5: oklch(0.68 0.2 150);
+
+  /* Warm cream paper ground + soft warm ink */
+  --background: oklch(0.972 0.014 74);
+  --foreground: oklch(0.33 0.035 47);
+
+  --card: oklch(0.993 0.006 80);
+  --card-foreground: oklch(0.33 0.035 47);
+  --popover: oklch(0.993 0.006 80);
+  --popover-foreground: oklch(0.33 0.035 47);
+
+  /* Terracotta / vermilion accent — the teapot */
+  --primary: oklch(0.615 0.175 38);
+  --primary-foreground: oklch(0.99 0.012 80);
+
+  /* Powder-blue surface — the spotted jug & teacup */
+  --secondary: oklch(0.9 0.045 232);
+  --secondary-foreground: oklch(0.36 0.05 250);
+
+  --muted: oklch(0.945 0.014 74);
+  --muted-foreground: oklch(0.52 0.035 55);
+
+  /* Soft teal-blue wash */
+  --accent: oklch(0.89 0.055 218);
+  --accent-foreground: oklch(0.34 0.05 240);
+
+  --destructive: oklch(0.585 0.19 28);
+  --destructive-foreground: oklch(0.99 0.012 80);
+
+  --border: oklch(0.885 0.022 66);
+  --input: oklch(0.905 0.02 66);
+  --ring: oklch(0.615 0.175 38);
+
+  /* Chart palette pulled straight from the painting */
+  --chart-1: oklch(0.615 0.175 38);  /* terracotta */
+  --chart-2: oklch(0.68 0.09 230);   /* dusty blue */
+  --chart-3: oklch(0.63 0.07 165);   /* sage green */
+  --chart-4: oklch(0.8 0.09 52);     /* peach */
+  --chart-5: oklch(0.52 0.06 55);    /* warm brown */
 }
 
 @layer base {
@@ -86,6 +103,12 @@
 
   body {
     background-color: var(--color-background);
+    /* Soft painted washes: cool blue drifting from the top-left, warm peach
+       from the top-right — echoing the still life's light. */
+    background-image:
+      radial-gradient(ellipse 42% 38% at 6% 4%, oklch(0.72 0.08 230 / 0.12), transparent 60%),
+      radial-gradient(ellipse 48% 42% at 97% 3%, oklch(0.8 0.09 46 / 0.14), transparent 62%);
+    background-attachment: fixed;
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
@@ -103,8 +126,9 @@
   }
 }
 
-/* Soft radial glow used behind hero sections */
+/* Watercolor wash behind hero sections — warm terracotta meeting cool blue */
 @utility hero-glow {
   background:
-    radial-gradient(ellipse 60% 45% at 50% -5%, oklch(0.62 0.24 293 / 0.28), transparent 70%);
+    radial-gradient(ellipse 55% 45% at 72% -8%, oklch(0.615 0.175 38 / 0.22), transparent 72%),
+    radial-gradient(ellipse 58% 48% at 18% -6%, oklch(0.68 0.09 232 / 0.24), transparent 70%);
 }
